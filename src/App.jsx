@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Suspense } from "react";
+import "./App.css";
+import Countries from "./componenets/countries/Countries";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const countriesPromise = fetch(
+    "https://openapi.programming-hero.com/api/all"
+  ).then((res) => res.json());
   return (
     <>
-      <h1>Lets go abroad....</h1>
+      <Suspense fallback={<p>Nadir on the goo...</p>}>
+        <Countries countriesPromise={countriesPromise}></Countries>
+      </Suspense>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
